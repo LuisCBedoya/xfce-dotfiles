@@ -6,14 +6,6 @@ if ! [ $(id -u) = 0 ]; then
   exit 1
 fi
 
-#anñadir sources list
-rm -Rf /etc/apt/sources.list
-cp -r ~/xfce-dotfiles/sources-list/sources.list /etc/apt/
-
-#añadir zram files
-rm -Rf /etc/default/zramswap
-cp -r ~/xfce-dotfiles/zram/zramswap /etc/default/
-
 #actualizar
 apt update -y && sudo apt upgrade -y
 
@@ -26,68 +18,69 @@ apt install -y \
     xfce4-settings \
     xfconf \
     xfdesktop4 \
+    xfce4-panel \
     xfwm4 \
     xinit \
     qt5ct
 
 ### Instalar complementos
-apt install -y linux-headers-$(uname -r) build-essential make automake pkg-config cmake autoconf git curl wget unzip unrar tar gzip python3-pip
-apt install -y libncurses-dev flex bison openssl libssl-dev dkms libelf-dev pkg-config liblz4-tool bc rsync
+apt install -y linux-headers-$(uname -r) build-essential make ninja-build fuse automake pkg-config cmake autoconf git python3-pip g++ 
+apt install -y libncurses-dev flex bison openssl libssl-dev dkms libelf-dev pkg-config liblz4-tool bc rsync debhelper dwarves
 apt install -y intel-microcode
-apt install -y nvidia-driver
+# apt install -y nvidia-driver
 
 #paquetes del usuario
-apt install --no-install-recommends -y kitty fuse nemo ripgrep dunst libnotify-bin dmenu flameshot eog evince tint2 zram-tools
+apt install --no-install-recommends -y kitty dunst libnotify-bin flameshot python3.11-venv ripgrep lxpolkit ntfs-3g
 
-### paquetes externos del usuario
+# ### paquetes externos del usuario
 
-#nvim
-cd
-wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-chmod u+x nvim.appimage
-mv nvim.appimage /usr/bin/nvim
+# #nvim
+# cd
+# wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+# chmod u+x nvim.appimage
+# mv nvim.appimage /usr/bin/nvim
 
-#lsd command line
-cd
-wget https://github.com/lsd-rs/lsd/releases/download/0.23.1/lsd-musl_0.23.1_amd64.deb
-dpkg -i lsd-musl_0.23.1_amd64.deb
+# #lsd command line
+# cd
+# wget https://github.com/lsd-rs/lsd/releases/download/0.23.1/lsd-musl_0.23.1_amd64.deb
+# dpkg -i lsd-musl_0.23.1_amd64.deb
 
-#nvm
-cd
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+# #nvm
+# cd
+# wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 
-#cargo
-cd
-curl https://sh.rustup.rs -sSf | sh
+# #cargo
+# cd
+# curl https://sh.rustup.rs -sSf | sh
 
-#kepassxc
-cd
-wget https://github.com/keepassxreboot/keepassxc/releases/download/2.7.5/KeePassXC-2.7.5-x86_64.AppImage
-chmod u+x KeePassXC-2.7.5-x86_64.AppImage 
-mv KeePassXC-2.7.5-x86_64.AppImage /usr/bin/keepassxc
+# #kepassxc
+# cd
+# wget https://github.com/keepassxreboot/keepassxc/releases/download/2.7.5/KeePassXC-2.7.5-x86_64.AppImage
+# chmod u+x KeePassXC-2.7.5-x86_64.AppImage 
+# mv KeePassXC-2.7.5-x86_64.AppImage /usr/bin/keepassxc
 
-#waterfox
-cd
-wget https://cdn1.waterfox.net/waterfox/releases/G5.1.9/Linux_x86_64/waterfox-G5.1.9.tar.bz2
-tar -xvf waterfox-G5.1.9.tar.bz2
-mv waterfox /opt
+# #waterfox
+# cd
+# wget https://cdn1.waterfox.net/waterfox/releases/G5.1.9/Linux_x86_64/waterfox-G5.1.9.tar.bz2
+# tar -xvf waterfox-G5.1.9.tar.bz2
+# mv waterfox /opt
 
-#fonts
-cd 
-cp -r xfce-dotfiles/fonts/HackerNerdFonts/ /usr/share/fonts/
-cp -r xfce-dotfiles/fonts/FontsCascadia /usr/share/fonts/
+# #fonts
+# cd 
+# cp -r xfce-dotfiles/fonts/HackerNerdFonts/ /usr/share/fonts/
+# cp -r xfce-dotfiles/fonts/FontsCascadia /usr/share/fonts/
 
-#themes
-cd
-cp -r xfce-dotfiles/themes/Sweet-Dark /usr/share/themes/
+# #themes
+# cd
+# cp -r xfce-dotfiles/themes/Sweet-Dark /usr/share/themes/
 
-#icons
-cd
-cp -r xfce-dotfiles/icons/kora /usr/share/icons/
+# #icons
+# cd
+# cp -r xfce-dotfiles/icons/kora /usr/share/icons/
 
-### copy and paste files 
-cd ~/xfce-dotfiles/config
-cp -r kitty dunst nvim tint2 ~/.config/
+# ### copy and paste files 
+# cd ~/xfce-dotfiles/config
+# cp -r kitty dunst nvim tint2 ~/.config/
 
 apt autoremove -y
 echo
