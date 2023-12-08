@@ -30,7 +30,7 @@ apt install -y intel-microcode
 # apt install -y nvidia-driver
 
 #paquetes del usuario
-apt install --no-install-recommends -y kitty dunst libnotify-bin flameshot python3.11-venv ripgrep lxpolkit ntfs-3g
+apt install --no-install-recommends -y kitty dunst libnotify-bin flameshot python3.11-venv ripgrep lxpolkit ntfs-3g jq fzf curl network-manager-gnome
 
 # ### paquetes externos del usuario
 
